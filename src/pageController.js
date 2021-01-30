@@ -1,5 +1,6 @@
 const pageScraper = require('./pageScraper');
 const { sendEmail } = require('./email');
+const { emailController } = require('./emailController');
 
 async function scrapeAll(browserInstance) {
   let browser;
@@ -24,16 +25,7 @@ async function scrapeAll(browserInstance) {
 
     await browser.close();
 
-    // Email formatting
-    const emailSubject = `Is J Mascis available? ${finalResult.some(result => result.isAvailable) ? 'YES!' : 'no...'}`
-
-    const emailBody = `<h1>Does someone have it: ${finalResult.some(result => result.isAvailable) ? 'YES!' : 'no...'} </h1>
-    <div>
-    <h2>Summary:</h2>
-    ${(finalResult.map(r => `<p>${r.store} ${r.isAvailable} ${r.title}</p>`)).join('\n')}
-    </div>`;
-
-    await sendEmail(emailSubject, emailBody);
+    emailController(finalResult);
   }
   catch (err) {
     console.log("Could not resolve the browser instance => ", err);
