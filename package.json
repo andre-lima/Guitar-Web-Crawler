@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "protonmail-api": "^2.1.0",
+    "@sendgrid/mail": "^7.4.2",
     "puppeteer": "^5.5.0"
   }
 }

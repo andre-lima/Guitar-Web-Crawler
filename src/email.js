@@ -1,19 +1,25 @@
-
-const ProtonMail = require('protonmail-api');
+const sgMail = require('@sendgrid/mail');
 
 async function sendEmail(subject, content) {
-  const pm = await ProtonMail.connect({
-    username: 'andredantaslima@protonmail.com',
-    password: 'Aa9c!6N7sFjngE'
-  })
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
-  await pm.sendEmail({
-    to: 'andre.dantas.lima@gmail.com',
+  const msg = {
+    name: 'MASCIS',
+    to: 'andre.dantas.lima@gmail.com', // Change to your recipient
+    from: 'andredantaslima@protonmail.com', // Change to your verified sender
     subject: subject,
-    body: content
-  })
+    html: content,
+  };
 
-  pm.close()
+  try {
+    await sgMail.send(msg);
+  } catch (error) {
+    console.error(error);
+
+    if (error.response) {
+      console.error(error.response.body)
+    }
+  }
 }
 
 module.exports = { sendEmail }
