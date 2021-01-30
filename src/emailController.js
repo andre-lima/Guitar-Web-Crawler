@@ -12,8 +12,10 @@ async function emailController(finalResult) {
     ${(finalResult.map(r => `<p>${r.store} /// <strong>${r.isAvailable ? 'YES' : 'no'}</strong> /// ${r.title}</p>`)).join('\n')}
     </div>`;
 
+  const currentHour = new Date().getHours();
+
   // Should send email?
-  if (isAnyAvailable || new Date().getHours() === 9 || new Date().getHours() === 17) {
+  if (isAnyAvailable || currentHour === 9 || currentHour === 17) {
     await sendEmail(emailSubject, emailBody);
     console.log('Email sent!');
   } else {
