@@ -8,7 +8,7 @@ async function scrapeAll(browserInstance) {
 
     const pages = [
       { name: 'lm', url: 'https://www.long-mcquade.com/112559/Guitars/Electric-Guitars/Fender-Musical-Instruments/J-Mascis-Signature-Jazzmaster---Vintage-White.htm' },
-      // { name: 'steves', url: 'https://www.stevesmusic.com/en/product/squier-j-mascis-jazzmaster-laurel-fingerboard-vintage-white-0371060541.html' },
+      { name: 'steves', url: 'https://www.stevesmusic.com/en/product/squier-j-mascis-jazzmaster-laurel-fingerboard-vintage-white-0371060541.html' },
       { name: 'archambault', url: 'https://www.archambault.ca/instruments/guitare-%C3%A9lectrique-jazzmaster-mascis-blanche/%C3%A9tui-non-inclus/0301060541/?id=2060994&cat=1884314' },
       { name: 'diplomatique', url: 'https://www.musiquediplomate.com/product/squier-j-mascis-jazzmaster-vintage-white/' },
       { name: 'kijiji', url: 'https://www.kijiji.ca/b-quebec/mascis/k0l9001?rb=true&dc=true' },
@@ -34,11 +34,11 @@ async function scrapeAll(browserInstance) {
     </div>`;
 
     console.log(emailSubject, emailBody);
-    // await sendEmail(emailSubject, emailBody);
+    await sendEmail(emailSubject, emailBody);
   }
   catch (err) {
     console.log("Could not resolve the browser instance => ", err);
-    // sendEmail('Something went wrong...')
+    sendEmail('Something went wrong...')
   }
 }
 
