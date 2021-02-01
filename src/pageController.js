@@ -4,6 +4,7 @@ const { emailController } = require('./emailController');
 
 async function scrapeAll(browserInstance) {
   let browser;
+
   try {
     browser = await browserInstance;
 
@@ -21,20 +22,27 @@ async function scrapeAll(browserInstance) {
     const currentHour = new Date().getHours();
 
     // Only scrape between 7h and 18h.
-    if (currentHour >= 7 || currentHour <= 18) {
+    if (currentHour >= 7 && currentHour <= 19) {
       for await (page of pages) {
         let result = await pageScraper.scraper(browser, page.url, page.name);
         finalResult.push(result);
       }
-
-      emailController(finalResult);
+    } else {
+      console.log('Not the right time for this.');
     }
 
     await browser.close();
+
+    if (finalResult.length) {
+      emailController(finalResult);
+    }
   }
   catch (err) {
     console.log("Could not resolve the browser instance => ", err);
-    sendEmail('Something went wrong...', 'Check your stuff!')
+    if (browser) {
+      await browser.close();
+    }
+    sendEmail('Something went wrong...', err)
   }
 }
 

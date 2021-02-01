@@ -11,5 +11,6 @@ function startScraping() {
   // Pass the browser instance to the scraper controller
   scraperController(browserInstance)
 }
+// startScraping()
 
 module.exports = startScraping;
