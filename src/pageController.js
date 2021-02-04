@@ -22,10 +22,14 @@ async function scrapeAll(browserInstance) {
     const currentHour = new Date().getHours();
 
     // Only scrape between 7h and 18h.
-    if (currentHour >= 7 && currentHour <= 19) {
+    if (currentHour >= 7 && currentHour <= 18) {
       for await (page of pages) {
-        let result = await pageScraper.scraper(browser, page.url, page.name);
-        finalResult.push(result);
+        try {
+          let result = await pageScraper.scraper(browser, page.url, page.name);
+          finalResult.push(result);
+        } catch (error) {
+          finalResult.push({ store: 'ERROR', title: page.name, isAvailable: false, comment: "crap..." });
+        }
       }
     } else {
       console.log('Not the right time for this.');

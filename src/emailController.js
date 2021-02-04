@@ -20,7 +20,7 @@ async function emailController(finalResult) {
   const currentHour = new Date().getHours();
 
   // Should send email?
-  if (true || isAnyAvailable || currentHour === 9 || currentHour === 17) {
+  if (isAnyAvailable || currentHour === 9 || currentHour === 17) {
     await sendEmail(emailSubject, emailBody);
     console.log('Email sent!');
   } else {
