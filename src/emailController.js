@@ -1,7 +1,7 @@
 const { sendEmail } = require('./email');
 
 async function emailController(finalResult) {
-  const isAnyAvailable = finalResult.some(result => result.isAvailable)
+  const isAnyAvailable = finalResult.some(result => result.isAvailable && !result.preventEmail)
 
   // Email formatting
   let emailSubject = `Is J Mascis available? ${isAnyAvailable ? 'YES!' : 'no...'}`

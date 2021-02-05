@@ -43,7 +43,7 @@ const scraperObject = {
         return { store: 'Archambault \t', title: archTitle, isAvailable: !!archIsAvailable, comment: '' };
         break;
 
-      case 'diplomatique':
+      case 'diplomate':
         // Wait for the required DOM to be rendered
         await page.waitForSelector('.summary-inner .stock');
 
@@ -51,7 +51,17 @@ const scraperObject = {
         const diploTitle = await page.$eval('.product_title.entry-title', el => el.textContent);
         const diploIsAvailable = await page.$eval('.summary-inner .stock', el => el.textContent);
 
-        return { store: 'Diplomatique', title: diploTitle, isAvailable: diploIsAvailable !== 'Out of stock', comment: '' };
+        return { store: 'Diplomate', title: diploTitle, isAvailable: diploIsAvailable !== 'Out of stock', comment: '' };
+
+      case 'nantel':
+        // Wait for the required DOM to be rendered
+        await page.waitForSelector('.summary-inner .stock');
+
+        // Get the link to all the required books
+        const nantelTitle = await page.$eval('.product_title.entry-title', el => el.textContent);
+        const nantelIsAvailable = await page.$eval('.summary-inner .stock', el => el.textContent);
+
+        return { store: 'Nantel', title: nantelTitle, isAvailable: nantelIsAvailable !== 'Out of stock', comment: '' };
 
       case 'kijiji':
         // Wait for the required DOM to be rendered

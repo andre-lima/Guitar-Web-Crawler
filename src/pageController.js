@@ -10,9 +10,10 @@ async function scrapeAll(browserInstance) {
 
     const pages = [
       { name: 'lm', url: 'https://www.long-mcquade.com/112559/Guitars/Electric-Guitars/Fender-Musical-Instruments/J-Mascis-Signature-Jazzmaster---Vintage-White.htm' },
-      { name: 'steves', url: 'https://www.stevesmusic.com/en/product/squier-j-mascis-jazzmaster-laurel-fingerboard-vintage-white-0371060541.html' },
+      { name: 'steves', url: 'https://www.stevesmusic.com/en/product/squier-j-mascis-jazzmaster-laurel-fingerboard-vintage-white-0371060541.html', preventEmail: true },
       { name: 'archambault', url: 'https://www.archambault.ca/instruments/guitare-%C3%A9lectrique-jazzmaster-mascis-blanche/%C3%A9tui-non-inclus/0301060541/?id=2060994&cat=1884314' },
-      { name: 'diplomatique', url: 'https://www.musiquediplomate.com/product/squier-j-mascis-jazzmaster-vintage-white/' },
+      { name: 'diplomate', url: 'https://www.musiquediplomate.com/product/squier-j-mascis-jazzmaster-vintage-white/', preventEmail: true },
+      { name: 'nantel', url: 'https://www.nantelmusique.ca/en/product/fender-j-mascis-jazzmaster-vintage-white-0371060541/', preventEmail: true },
       { name: 'kijiji', url: 'https://www.kijiji.ca/b-quebec/mascis/k0l9001?rb=true&dc=true' },
       { name: 'kijiji', url: 'https://www.kijiji.ca/b-guitare/quebec/jazzmaster/k0c613l9001?rb=true' }
     ];
@@ -28,7 +29,7 @@ async function scrapeAll(browserInstance) {
           let result = await pageScraper.scraper(browser, page.url, page.name);
           finalResult.push(result);
         } catch (error) {
-          finalResult.push({ store: 'ERROR', title: page.name, isAvailable: false, comment: "crap..." });
+          finalResult.push({ store: 'ERROR', title: page.url, isAvailable: false, comment: "crap..." });
         }
       }
     } else {
